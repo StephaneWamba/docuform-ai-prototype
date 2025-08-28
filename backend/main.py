@@ -36,5 +36,5 @@ async def health_check():
 if __name__ == "__main__":
     import uvicorn
     import os
-    port = 8000  # Force port 8000 for Railway
+    port = 8080  # Use port 8080 for Railway
     uvicorn.run(app, host="0.0.0.0", port=port)

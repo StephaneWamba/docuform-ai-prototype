@@ -1,4 +1,5 @@
 "use client";
+// DocuForm AI - Healthcare Patient Intake Automation Frontend
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

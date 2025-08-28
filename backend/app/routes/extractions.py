@@ -8,6 +8,7 @@ from ..database import get_db
 
 router = APIRouter()
 
+
 @router.get("/{document_id}", response_model=ExtractionResult)
 async def get_extraction_result(
     document_id: str,
@@ -27,7 +28,8 @@ async def get_extraction_result(
     ).all()
 
     if not extractions:
-        raise HTTPException(status_code=404, detail="No extractions found for this document")
+        raise HTTPException(
+            status_code=404, detail="No extractions found for this document")
 
     # Build patient info from extractions
     patient_info = PatientInfo()
@@ -64,7 +66,8 @@ async def get_extraction_result(
             patient_info.primary_care_physician = value
 
     # Calculate overall confidence
-    overall_confidence = total_confidence / len(extractions) if extractions else 0.0
+    overall_confidence = total_confidence / \
+        len(extractions) if extractions else 0.0
 
     return ExtractionResult(
         document_id=document_id,
@@ -72,6 +75,7 @@ async def get_extraction_result(
         processing_time=0.0,  # TODO: Calculate actual processing time
         overall_confidence=round(overall_confidence, 2)
     )
+
 
 @router.get("/{document_id}/details", response_model=List[Extraction])
 async def get_extraction_details(

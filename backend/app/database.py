@@ -6,7 +6,8 @@ import os
 from decouple import config
 
 # Database configuration
-DATABASE_URL = config("DATABASE_URL", default="postgresql://localhost/docuform")
+DATABASE_URL = config(
+    "DATABASE_URL", default="postgresql://localhost/docuform")
 
 engine = create_engine(
     DATABASE_URL,
@@ -18,6 +19,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+
 def get_db() -> Generator[Session, None, None]:
     """
     Dependency to get database session
@@ -28,11 +30,13 @@ def get_db() -> Generator[Session, None, None]:
     finally:
         db.close()
 
+
 def create_tables():
     """
     Create all database tables
     """
     Base.metadata.create_all(bind=engine)
+
 
 def drop_tables():
     """

@@ -1,0 +1,11 @@
+[build]
+builder = "python"
+
+[deploy]
+startCommand = "python main.py"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+
+[environment]
+PYTHON_VERSION = "3.11"

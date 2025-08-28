@@ -18,13 +18,23 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(documents.router, prefix="/api/v1/documents", tags=["documents"])
-app.include_router(extractions.router, prefix="/api/v1/extractions", tags=["extractions"])
+app.include_router(
+    documents.router, prefix="/api/v1/documents", tags=["documents"])
+app.include_router(extractions.router,
+                   prefix="/api/v1/extractions", tags=["extractions"])
+
 
 @app.get("/")
 async def root():
     return {"message": "DocuForm AI Healthcare OCR API", "status": "active"}
 
+
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "docuform-ai"}
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

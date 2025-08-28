@@ -3,9 +3,11 @@ from typing import Optional, List
 from datetime import datetime
 from enum import Enum
 
+
 class DocumentType(str, Enum):
     INSURANCE_CARD = "insurance_card"
     INTAKE_FORM = "intake_form"
+
 
 class DocumentStatus(str, Enum):
     UPLOADED = "uploaded"
@@ -14,12 +16,16 @@ class DocumentStatus(str, Enum):
     FAILED = "failed"
 
 # Document schemas
+
+
 class DocumentBase(BaseModel):
     filename: str = Field(..., description="Original filename")
     document_type: DocumentType = Field(..., description="Type of document")
 
+
 class DocumentCreate(DocumentBase):
     pass
+
 
 class Document(DocumentBase):
     id: str = Field(..., description="Document UUID")
@@ -31,13 +37,18 @@ class Document(DocumentBase):
         from_attributes = True
 
 # Extraction schemas
+
+
 class ExtractionBase(BaseModel):
     field_name: str = Field(..., description="Extracted field name")
     extracted_value: Optional[str] = Field(None, description="Extracted value")
-    confidence_score: float = Field(..., ge=0.0, le=1.0, description="Confidence score")
+    confidence_score: float = Field(..., ge=0.0,
+                                    le=1.0, description="Confidence score")
+
 
 class ExtractionCreate(ExtractionBase):
     document_id: str = Field(..., description="Associated document ID")
+
 
 class Extraction(ExtractionBase):
     id: str = Field(..., description="Extraction UUID")
@@ -49,6 +60,8 @@ class Extraction(ExtractionBase):
         from_attributes = True
 
 # Patient data schemas
+
+
 class PatientInfo(BaseModel):
     full_name: Optional[str] = None
     date_of_birth: Optional[str] = None
@@ -64,17 +77,21 @@ class PatientInfo(BaseModel):
     primary_care_physician: Optional[str] = None
 
 # API response schemas
+
+
 class ProcessingResponse(BaseModel):
     document_id: str
     status: str
     message: str
     estimated_time: Optional[int] = None
 
+
 class ExtractionResult(BaseModel):
     document_id: str
     patient_info: PatientInfo
     processing_time: float
     overall_confidence: float
+
 
 class ErrorResponse(BaseModel):
     error: str

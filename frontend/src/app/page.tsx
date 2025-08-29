@@ -226,7 +226,7 @@ export default function Home() {
                       onChange={(e) => handleInputChange("state", e.target.value)}
                       placeholder="IL"
                     />
-                  </div>
+        </div>
                   <div>
                     <Label htmlFor="zipCode">ZIP Code</Label>
                     <Input
